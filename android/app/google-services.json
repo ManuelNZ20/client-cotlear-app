@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "936771815928",
+    "project_id": "cotlear-app-6c2c5",
+    "storage_bucket": "cotlear-app-6c2c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936771815928:android:21ea9a76597f6081f3ae0d",
+        "android_client_info": {
+          "package_name": "com.example.cotlear_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936771815928-in27ephvpupv9hvd229lorlvsmj5qt1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cotlear_app",
+            "certificate_hash": "394a809f1cde86e4f4f2d06d2d6262d2e19a5e11"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyEInBVc41M9IYHLug0tEvQ_2HctYsD1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936771815928-3ftd14acji58pfvosemjnjnqsnf1nfdk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "936771815928-o0eb3t4lvqm1mob6opr99tfu7lkb4f65.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cotlear_app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

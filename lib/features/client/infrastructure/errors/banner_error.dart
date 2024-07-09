@@ -1,0 +1,1 @@
+class BannerNotFound implements Exception {}
