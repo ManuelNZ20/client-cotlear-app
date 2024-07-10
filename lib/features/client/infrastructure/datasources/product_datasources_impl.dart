@@ -21,10 +21,10 @@ class ProductDatasourceImpl implements ProductDatasource {
   @override
   Future<Product> getProductById({String idProduct = ''}) async {
     try {
-      final response = await supabaseClient
-          .from(nameTable)
-          .select()
-          .eq('idproduct', idProduct);
+      final response = await supabaseClient.from(nameTable).select('''
+        *,
+        productdiscount(*)
+        ''').eq('idproduct', idProduct);
       final product = _responseProduct(response).first;
       return product;
     } on AuthException catch (e) {
@@ -53,7 +53,10 @@ class ProductDatasourceImpl implements ProductDatasource {
   @override
   Future<List<Product>> getProducts() async {
     try {
-      final response = await supabaseClient.from(nameTable).select();
+      final response = await supabaseClient.from(nameTable).select('''
+        *,
+        productdiscount(*)
+        ''');
       final products = _responseProduct(response);
       return products;
     } catch (e) {
@@ -118,5 +121,33 @@ class ProductDatasourceImpl implements ProductDatasource {
         )
         .toList();
     return products;
+  }
+
+  @override
+  Future<List<Product>> getProductsByCategory(String idCategory) async {
+    try {
+      final response = await supabaseClient
+          .from(nameTable)
+          .select()
+          .eq('idcategory', idCategory);
+      final products = _responseProduct(response);
+      return products;
+    } catch (e) {
+      throw Exception('Error loading products ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<List<Product>> getProductsWithDiscount() async {
+    try {
+      final response = await supabaseClient.from(nameTable).select('''
+        *,
+        productdiscount(*)
+        ''').neq('productdiscount', []);
+      final products = _responseProduct(response);
+      return products;
+    } catch (e) {
+      throw Exception('Error loading products ${e.toString()}');
+    }
   }
 }

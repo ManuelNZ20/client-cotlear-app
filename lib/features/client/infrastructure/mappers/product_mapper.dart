@@ -15,5 +15,8 @@ class ProductMapper {
         createAt: product.createAt,
         expireProduct: product.expireProduct,
         updateAt: product.updateAt,
+        productDiscount: product.productdiscount.isNotEmpty
+            ? product.productdiscount.first
+            : null,
       );
 }

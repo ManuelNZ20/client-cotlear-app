@@ -16,4 +16,8 @@ abstract class ProductRepository {
   Stream<List<Product>> searchProductsStream(String textSearch);
 
   Stream<List<Product>> getProductsStream();
+
+  Future<List<Product>> getProductsByCategory(String idCategory);
+
+  Future<List<Product>> getProductsWithDiscount();
 }

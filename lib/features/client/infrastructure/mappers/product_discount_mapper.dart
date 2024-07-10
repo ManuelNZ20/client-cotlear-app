@@ -9,6 +9,5 @@ class ProductDiscountMapper {
         idproduct: productDiscount.idproduct,
         discountpercentage: productDiscount.discountPercentage,
         createdAt: productDiscount.createdAt,
-        product: productDiscount.product,
       );
 }

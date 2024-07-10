@@ -68,4 +68,16 @@ class ProductRepositoryImpl implements ProductRepository {
     final searchProducts = productDataSource.searchProductsStream(textSearch);
     return searchProducts;
   }
+
+  @override
+  Future<List<Product>> getProductsByCategory(String idCategory) async {
+    final products = await productDataSource.getProductsByCategory(idCategory);
+    return products;
+  }
+
+  @override
+  Future<List<Product>> getProductsWithDiscount() async {
+    final products = await productDataSource.getProductsWithDiscount();
+    return products;
+  }
 }

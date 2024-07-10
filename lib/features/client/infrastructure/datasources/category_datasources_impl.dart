@@ -16,7 +16,8 @@ class CategoryDatasourceImpl extends CategoryDatasource {
   @override
   Future<List<CategoryCard>> getCategories() async {
     try {
-      final response = await supabaseClient.from(nameTable).select();
+      final response =
+          await supabaseClient.from(nameTable).select().eq('status', true);
       final categories = response
           .map((category) =>
               CategoryMapper.toCategoryEntity(CategoryModel.fromJson(category)))

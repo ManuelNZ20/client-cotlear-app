@@ -9,9 +9,7 @@ class AppTheme {
         useMaterial3: true,
         brightness: Brightness.light,
         colorSchemeSeed: colorSeed,
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-        ),
+        // appBarTheme: const AppBarTheme(),
         textTheme: TextTheme(
           titleLarge: GoogleFonts.poppins()
               .copyWith(fontSize: 24, fontWeight: FontWeight.w600),

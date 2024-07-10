@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:cotlear_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:cotlear_app/features/auth/presentation/screens/screens.dart';
-import '../../features/client/screens/screens.dart';
+import '../../features/client/presentation/screens/screens.dart';
+import '../../features/client/presentation/views/views.dart';
 import 'app_router_notifier.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -27,11 +29,71 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/register',
         builder: (context, state) => const RegisterScreen(),
       ),
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const HomeScreen(),
-      ),
-      // database
+
+      ShellRoute(
+        builder: (context, state, child) {
+          return HomeScreen(childView: child);
+        },
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => const HomeView(),
+            routes: [
+              // PRODUCT
+              GoRoute(
+                path: 'product/:idProduct',
+                builder: (context, state) {
+                  final idProduct = state.pathParameters['idProduct'];
+                  return ProductDetailScreen(
+                    productId: idProduct!,
+                  );
+                },
+              ),
+              GoRoute(
+                path: 'products-all',
+                builder: (context, state) {
+                  return const ProductsAllScreen();
+                },
+              ),
+              // Categories
+              GoRoute(
+                path: 'categories',
+                builder: (context, state) => const CategoriesScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'productscategories/:idCategory',
+                    builder: (context, state) {
+                      final idCategory = state.pathParameters['idCategory'];
+                      return ProductsByIdCategoryScreen(
+                        categoryId: idCategory!,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          GoRoute(
+            path: '/orders',
+            builder: (context, state) => const OrdersView(),
+          ),
+
+          GoRoute(
+            path: '/cart',
+            builder: (context, state) => const CartView(),
+          ),
+          GoRoute(
+            path: '/favorites',
+            builder: (context, state) => const FavoritesView(),
+          ),
+          // CATEGORIES
+
+          GoRoute(
+            path: '/user',
+            builder: (context, state) => const UserScreen(),
+          ),
+        ],
+      )
     ],
     redirect: (context, state) {
       final authStatus = goRouterNotifier.authStatus;

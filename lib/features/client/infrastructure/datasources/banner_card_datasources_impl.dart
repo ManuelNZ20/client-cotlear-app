@@ -13,7 +13,8 @@ class BannerCardDatasourceImpl extends BannerCardDatasource {
   @override
   Future<List<BannerCard>> getBanners() async {
     try {
-      final response = await supabaseClient.from(nameTable).select();
+      final response =
+          await supabaseClient.from(nameTable).select().eq('isActive', true);
       final banners = _responseBanner(response);
       return banners;
     } catch (e) {
@@ -40,23 +41,24 @@ class BannerCardDatasourceImpl extends BannerCardDatasource {
     }
   }
 
+  @override
+  Stream<List<BannerCard>> getBannersStream() {
+    try {
+      final response = supabaseClient
+          .from(nameTable)
+          .stream(primaryKey: ['idBanner']).neq('isActive', false);
+      final banners = response.map((event) => _responseBanner(event));
+      return banners;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   List<BannerCard> _responseBanner(List<Map<String, dynamic>> response) {
     final banners = response
         .map((banner) => BannerCardMapper.toBannerCardEntity(
             BannerCardModel.fromJson(banner)))
         .toList();
     return banners;
-  }
-
-  @override
-  Stream<List<BannerCard>> getBannersStream() {
-    try {
-      final response =
-          supabaseClient.from(nameTable).stream(primaryKey: ['idBanner']);
-      final banners = response.map((event) => _responseBanner(event));
-      return banners;
-    } catch (e) {
-      throw Exception(e);
-    }
   }
 }
